@@ -10,14 +10,24 @@ cookbook_file '/etc/apt/sources.list' do
   mode '0644'
 end
 
-execute 'do a system update, since we changed sources' do
-  command 'apt-get update'
+execute 'do an apt cleanup' do
+  command 'apt-get clean && apt-get autoclean'
+  action :run
+end
+
+execute 'do a system update' do
+  command 'apt-get update --fix-missing'
+  action :run
+end
+
+execute 'update system keys' do
+  command 'apt-key update'
   action :run
 end
 
 apt_package 'devscripts' do
   action :install
-  options '--no-install-recommends'
+  options '--no-install-recommends --allow-unauthenticated'
 end
 
 directory node[:docker_vlc][:workspace] do
@@ -27,13 +37,13 @@ directory node[:docker_vlc][:workspace] do
 end
 
 execute 'get vlc build dependencies' do
-  command "apt-get build-dep -y vlc"
+  command "apt-get build-dep -y --force-yes vlc"
   action :run
   cwd node[:docker_vlc][:workspace]
 end
 
 execute 'get vlc sources' do
-  command "apt-get source -y vlc=#{node[:docker_vlc][:vlc_version]}"
+  command "apt-get source -y --force-yes --allow-unauthenticated vlc=#{node[:docker_vlc][:vlc_version]}"
   action :run
   cwd node[:docker_vlc][:workspace]
 end
