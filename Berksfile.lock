@@ -1,0 +1,7 @@
+DEPENDENCIES
+  docker_vlc
+    path: .
+    metadata: true
+
+GRAPH
+  docker_vlc (0.1.0)
