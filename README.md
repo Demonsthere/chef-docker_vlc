@@ -2,9 +2,9 @@
 
 ## Description
 
-This cookbooks is desinged to run in a local docker container, supplied by the Dockerfile. This container is build from the ARMv7 version of Ubuntu, however a qemu binary-bridge is added to the image, which allows it to be run on the x86 architecture.
+This cookbooks is desinged to run in a local docker container, supplied by the Dockerfile. This container is build from the ARMv7 version of Debian, however a qemu binary-bridge is added to the image, which allows it to be run on the x86 architecture.
 
-What that is means, you cna build software from ARM (like the Raspberry Pi) inside a container on Your x86 machine. 
+What this means, you can build software for the ARM (like the Raspberry Pi) inside a container on Your x86 machine. 
 
 ## VLC compilation
 

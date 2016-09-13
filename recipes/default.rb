@@ -25,9 +25,11 @@ execute 'update system keys' do
   action :run
 end
 
-apt_package 'devscripts' do
-  action :install
-  options '--no-install-recommends --allow-unauthenticated'
+node[:docker_vlc][:packages].each do |pkg|
+  apt_package pkg do
+    action :install
+    options '--no-install-recommends --allow-unauthenticated'
+  end
 end
 
 directory node[:docker_vlc][:workspace] do
