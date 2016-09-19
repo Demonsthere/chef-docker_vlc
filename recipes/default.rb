@@ -68,4 +68,5 @@ execute 'Compile the package' do
   command 'debuild -i -us -uc -b'
   cwd node[:docker_vlc][:compilation_dir]
   action :run
+  timeout 9999
 end

@@ -21,6 +21,8 @@ platforms:
       image: "arm_box-debian"
       platform: ubuntu
       hostname: vlc
+      envirionment:
+        TERM: 'xterm'
 suites:
   - name: default
     run_list:
