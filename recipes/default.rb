@@ -1,3 +1,4 @@
+require 'mixlib/shellout'
 #
 # Cookbook Name:: docker_vlc
 # Recipe:: default
@@ -64,9 +65,11 @@ cookbook_file "#{node[:docker_vlc][:compilation_dir]}/debian/vlc-nox.install.in"
   mode '0644'
 end
 
-execute 'Compile the package' do
-  command 'debuild -i -us -uc -b'
-  cwd node[:docker_vlc][:compilation_dir]
-  action :run
-  timeout 9999
+ruby_block 'Compile the package' do
+  block do
+    # command = "/bin/bash -c 'cd #{node[:docker_vlc][:compilation_dir]} && debuild -i -us -uc -b'"
+    # shell_out!(command, timeout: 100000)
+    cmd = Mixlib::ShellOut.new("debuild", "-i -us -uc -b", :cwd => node[:docker_vlc][:compilation_dir], :timeout => 100000)
+    cmd.run_command # etc.
+  end
 end
